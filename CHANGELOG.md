@@ -5,6 +5,51 @@ Formato: [Semver](https://semver.org) · Ordenação: mais recente primeiro.
 
 ---
 
+## [1.7.0] — 2026-10-28
+
+### Brand Discovery — Novo Quiz Estratégico & Briefing Criativo
+
+Nova funcionalidade estratégica desenvolvida para qualificação e alinhamento profundo de marca com clientes e prospects:
+
+- **Banco de Dados Dedicado (`{prefix}sued_brand_discovery`)**:
+  - Tabela criada e atualizada automaticamente via `dbDelta` em `inc/brand-discovery-handler.php` com versionamento de schema (`sued_brand_discovery_db_version`).
+  - Armazena dados de contato e identificação (`client_name`, `company_name`, `email`, `sector`, `project_type`), status do lead (`new`, `contacted`, `in_progress`, `completed`, `archived`), metadados técnicos (IP, user agent, URL de origem) e respostas estruturadas completas em `answers_json` (LONGTEXT).
+
+- **Endpoint REST Seguro**:
+  - Registrada a rota `POST /wp-json/sued/v1/brand-discovery-submit` com verificação estrita de nonce (`wp_rest`), proteção contra bots por honeypot invisível (`sued_hp_check` e `website`), rate limiting por IP via Transients (máx. 5 envios/10 min) e sanitização profunda recursiva de todos os campos.
+
+- **Notificações por E-mail**:
+  - Disparo imediato de e-mails de alerta para a equipe (`henrich.caeiro@gmail.com`, `le_19camargo@hotmail.com`, `heloheloisa.srf@gmail.com`) com template HTML estilizado no padrão dark SUED Studio, exibindo resumo executivo, dados do cliente, pitch do projeto e link direto para o briefing no painel.
+
+- **Painel CRM no WP Admin**:
+  - Nova aba em **Leads SUED > Brand Discovery** (`admin.php?page=sued-brand-discovery`) integrada ao ecossistema de gestão do tema.
+  - KPIs visuais de contagem por status (Total, Novos, Em Contato, Em Andamento, Concluídos, Arquivados).
+  - Tabela dinâmica com filtros por status e busca por texto (cliente, empresa, e-mail).
+  - Tela detalhada de inspeção de briefing dividida em cartões executivos (O Negócio, Alma da Marca & Arquétipos, Público & Concorrentes, Personalidade Visual com barras de espectro, Referências Criativas, Tom de Voz e Mensagem ao Designer).
+  - Visualizador de payload JSON bruto e troca de status com nonce de segurança.
+
+- **Bloco Gutenberg e Shortcode**:
+  - Criado o bloco nativo `sued-studio/brand-discovery` (`blocks/brand-discovery/`) registrado no `functions.php`.
+  - Suporte ao shortcode `[sued_brand_discovery]` para inserção simplificada.
+
+- **Identidade Visual e Experiência do Usuário (Frontend)**:
+  - Estilização completa em `assets/css/brand-discovery.css` alinhada aos tokens visuais da SUED Studio: Dark Navy (`#0F1923`), Deep (`#0A1118`), Azul Elétrico (`#26AFFF`), Dourado Champagne (`#C8A96E`), fontes Montserrat e Open Sans.
+  - Script interativo `assets/js/brand-discovery.js` gerenciando as 7 etapas com validação de campos obrigatórios, barra de progresso sticky com backdrop blur, seletores de chips (tipo de projeto, modelo de negócio, pessoa verbal, aplicações), grade de valores inegociáveis, cartões de arquétipos, sliders de espectro com atualização em tempo real, grade de adjetivos, paleta de cores e botões de tom de voz.
+  - Tela de confirmação com exportação direta para arquivos `.json` e `.txt` legível para o cliente.
+
+- **Template de Página, Provisionamento Automático e Navegação**:
+  - Implementada a função `sued_ensure_brand_discovery_page()` em `inc/brand-discovery-handler.php` para provisionar e publicar automaticamente a página `Brand Discovery` (`/brand-discovery`) no banco de dados WordPress caso ainda não exista, atualizando as regras de reescrita (*rewrite rules*).
+  - Adicionado fallback em `template_include` para garantir que o endpoint `/brand-discovery` resolva como página mesmo se o cache de rotas do WordPress estiver desatualizado.
+  - Criados os templates de bloco FSE `templates/page-brand-discovery.html` e `templates/brand-discovery.html`, além do template PHP clássico `template-brand-discovery.php`.
+  - Registrado o modelo customizado `brand-discovery` ("Brand Discovery") em `theme.json` (`customTemplates`).
+  - Adicionado o link de navegação **Brand Discovery** (`/brand-discovery`) no menu principal (`parts/header.html`) e no rodapé (`parts/footer.html`).
+
+- **Bump de Versão**:
+  - `functions.php` atualizado para `1.7.0` (`SUED_VERSION`).
+  - `style.css` atualizado para `1.7.0`.
+
+---
+
 ## [1.6.3] — 2026-09-11
 
 ### Correção de Precedência de Template FSE e Header no `/diagnostico`

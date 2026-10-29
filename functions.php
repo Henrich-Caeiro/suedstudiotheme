@@ -4,7 +4,7 @@
  */
 defined('ABSPATH') || exit;
 
-define('SUED_VERSION', '1.6.3');
+define('SUED_VERSION', '1.7.0');
 define('SUED_DIR',     get_template_directory());
 define('SUED_URI',     get_template_directory_uri());
 
@@ -13,6 +13,9 @@ require_once SUED_DIR . '/inc/contact-form.php';
 
 /* ─── Interactive Quiz (DB + REST API + Admin CRM) ──────────── */
 require_once SUED_DIR . '/inc/quiz-handler.php';
+
+/* ─── Brand Discovery Quiz (DB + REST API + Admin CRM) ──────── */
+require_once SUED_DIR . '/inc/brand-discovery-handler.php';
 
 /* ─── Theme Setup ────────────────────────────────────────────── */
 add_action('after_setup_theme', function () {
@@ -39,7 +42,7 @@ add_filter('block_categories_all', function (array $cats): array {
 add_action('init', function () {
 
     // 1. Register block types first
-    $blocks = ['hero', 'positioning', 'process', 'services', 'results', 'differential', 'cta', 'quiz'];
+    $blocks = ['hero', 'positioning', 'process', 'services', 'results', 'differential', 'cta', 'quiz', 'brand-discovery'];
     foreach ($blocks as $block) {
         $dir = SUED_DIR . "/blocks/{$block}";
         if (file_exists("{$dir}/block.json")) {
