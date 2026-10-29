@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sued-studio/brand-discovery",
+  "version": "1.0.0",
+  "title": "Brand Discovery",
+  "description": "Formulário estratégico interativo de Brand Discovery e briefing criativo para qualificação de marcas.",
+  "category": "sued-studio",
+  "icon": "art",
+  "textdomain": "sued-studio",
+  "attributes": {},
+  "supports": {
+    "html": false,
+    "align": ["full"],
+    "anchor": true
+  },
+  "style": "file:./style.css",
+  "render": "file:./template.php"
+}
+

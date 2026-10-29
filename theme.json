@@ -410,6 +410,13 @@
       "postTypes": [
         "page"
       ]
+    },
+    {
+      "name": "brand-discovery",
+      "title": "Brand Discovery",
+      "postTypes": [
+        "page"
+      ]
     }
   ],
   "patterns": []
